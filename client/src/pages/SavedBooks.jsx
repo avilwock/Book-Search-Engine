@@ -6,7 +6,7 @@ import {
   Button,
 } from "react-bootstrap";
 
-import Navbar from '../components/Navbar'
+// import Navbar from '../components/Navbar'
 
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
@@ -20,8 +20,7 @@ const SavedBooks = () => {
   const [removeBook] = useMutation(REMOVE_BOOK);
   const userData = data?.me || {};
 
-
-
+  console.log('User Data:', userData);
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
     // get token
@@ -49,32 +48,31 @@ const SavedBooks = () => {
 
   return (
     <>
-      <Navbar fluid className="text-light bg-dark p-5">
-        <Container>
-          <h1>Viewing saved books!</h1>
-        </Container>
-      </Navbar>
       <Container>
         <h2 className="pt-5">Your Saved Books</h2>
         <Row xs={1} md={2} lg={3} className="g-4">
-          {/* Map over your saved books data and render each book as a card */}
-          {userData.savedBooks.map((book) => (
-            <Col key={book.bookId}>
-              <Card border="dark">
-                {book.image && (
-                  <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant="top" />
-                )}
-                <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <p className="small">Authors: {book.authors}</p>
-                  <Card.Text>{book.description}</Card.Text>
-                  <Button className="btn-block btn-danger" onClick={() => handleDeleteBook(book.bookId)}>
-                    Delete this Book!
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
+          {/* Check if userData.savedBooks exists before mapping over it */}
+          {userData.savedBooks && userData.savedBooks.length > 0 ? (
+            userData.savedBooks.map((book) => (
+              <Col key={book.bookId}>
+                <Card border="dark">
+                  {book.image && (
+                    <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant="top" />
+                  )}
+                  <Card.Body>
+                    <Card.Title>{book.title}</Card.Title>
+                    <p className="small">Authors: {book.authors}</p>
+                    <Card.Text>{book.description}</Card.Text>
+                    <Button className="btn-block btn-danger" onClick={() => handleDeleteBook(book.bookId)}>
+                      Delete this Book!
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          ) : (
+            <p>No saved books found.</p>
+          )}
         </Row>
       </Container>
     </>

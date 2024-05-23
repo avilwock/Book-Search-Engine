@@ -49,7 +49,7 @@ const SearchBooks = () => {
 
       const { items } = await response.json();
 
-      const bookData = items.map((book) => ({
+      const bookInput = items.map((book) => ({
         bookId: book.id,
         authors: book.volumeInfo.authors || ['No author to display'],
         title: book.volumeInfo.title,
@@ -57,7 +57,7 @@ const SearchBooks = () => {
         image: book.volumeInfo.imageLinks?.thumbnail || '',
       }));
 
-      setSearchedBooks(bookData);
+      setSearchedBooks(bookInput);
       setSearchInput('');
     } catch (err) {
       console.error(err);
@@ -68,21 +68,24 @@ const SearchBooks = () => {
   
   
   const handleSaveBook = async (bookId) => {
-    // find the book in `searchedBooks` state by the matching id
+    // Find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
     
     try {
-      await saveBook(
-        {
-          variables: bookToSave,
-        }
-      );
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      // Execute the `saveBook` mutation
+      const { data } = await saveBook({
+        variables: { bookInput: bookToSave }
+      });
+  
+      // Update UI or state as needed
+      console.log('Book saved:', data.saveBook);
+  
+      // Optionally update state to reflect that the book has been saved
+      setSavedBookIds([...savedBookIds, data.saveBook._id]);
     } catch (err) {
-      console.error(err);
+      console.error('Error saving book:', err);
+      
     }
-
-
   };
 
   return (
