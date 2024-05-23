@@ -6,8 +6,6 @@ import {
   Button,
 } from "react-bootstrap";
 
-// import Navbar from '../components/Navbar'
-
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 import { REMOVE_BOOK } from "../utils/mutations";
@@ -20,7 +18,8 @@ const SavedBooks = () => {
   const [removeBook] = useMutation(REMOVE_BOOK);
   const userData = data?.me || {};
 
-  console.log('User Data:', userData);
+
+
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
     // get token
@@ -51,7 +50,6 @@ const SavedBooks = () => {
       <Container>
         <h2 className="pt-5">Your Saved Books</h2>
         <Row xs={1} md={2} lg={3} className="g-4">
-          {/* Check if userData.savedBooks exists before mapping over it */}
           {userData.savedBooks && userData.savedBooks.length > 0 ? (
             userData.savedBooks.map((book) => (
               <Col key={book.bookId}>
@@ -61,7 +59,7 @@ const SavedBooks = () => {
                   )}
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
-                    <p className="small">Authors: {book.authors}</p>
+                    <p className="small">Authors: {book.authors.join(', ')}</p>
                     <Card.Text>{book.description}</Card.Text>
                     <Button className="btn-block btn-danger" onClick={() => handleDeleteBook(book.bookId)}>
                       Delete this Book!
@@ -71,7 +69,7 @@ const SavedBooks = () => {
               </Col>
             ))
           ) : (
-            <p>No saved books found.</p>
+            <h3>You have no saved books!</h3>
           )}
         </Row>
       </Container>
