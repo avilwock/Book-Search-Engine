@@ -41,28 +41,24 @@ const resolvers = {
   
             return { token, user };
         },
-        // saveBook: async (parent, { bookInput }) => {
-        //     console.log('Received book data:', bookInput);
-        //     // Assuming User is your Mongoose model for users
-        //     const updatedUser = await User.create({ savedBooks: bookInput });
-        //     return updatedUser;
-        // },
-        saveBook: async (parent, book, context) => {
-          // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
+        saveBook: async (_, { bookInput }, context) => {
+          // Ensure that the context has a user property (from authentication)
           if (context.user) {
-            return User.findOneAndUpdate(
-              { _id: context.user._id},
-              {
-                $addToSet: { savedBooks: book},
-              },
-              {
-                new: true,
-                runValidators: true 
-              }
-            );
+            try {
+              // Use the User model to find and update the user's saved books
+              const updatedUser = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $addToSet: { savedBooks: bookInput } },
+                { new: true }
+              );
+              return updatedUser;
+            } catch (error) {
+              console.error(error);
+              throw new Error('Error saving book');
+            }
+          } else {
+            throw new Error('Authentication required');
           }
-          // If user attempts to execute this mutation and isn't logged in, throw an error
-          throw new AuthenticationError('You need to be logged in!');
         },
         removeBook: async (parent, { bookId }, context) => {
             // Check if the user is authenticated
@@ -76,7 +72,7 @@ const resolvers = {
             }
             
             // Handle authentication error within authMiddleware
-            authMiddleware(context.req);
+           throw new AuthenticationError('Please log in')
         },
     },
 };
