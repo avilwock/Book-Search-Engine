@@ -13,7 +13,7 @@ To set up this project, I need to:
 
     3. Create an Apollo Provider so that requests can communicate with an Apollo Server.
 
-    4/ Deploy your application to Render with a MongoDB database using MongoDB Atlas. Use the Deploy with Render and MongoDB Atlas walkthrough for instructions.
+    4/ Deploy my application to Render with a MongoDB database using MongoDB Atlas. Use the Deploy with Render and MongoDB Atlas walkthrough for instructions.
 
 ## User Story
 
@@ -56,3 +56,25 @@ THEN that book is deleted from my saved books list
 WHEN I click on the Logout button
 THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button  
 ```
+
+## Access
+
+To access the repository for this site please visit: https://github.com/avilwock/Book-Search-Engine.
+
+To access the project deployed through Render, please visit: https://book-search-engine-73ed.onrender.com/
+
+## Usage
+
+To use this site, please visit the above link. You will need to sign up with a username, email, and password. Once signed up you can view books by typing the titles, authors, or keywords into the search engine.
+
+To save a book to your list, click on the button underneath the book that says, 'Save This Book!'. To view your saved books, please click the See Your Books link at the top of the page on the right. On this page if you have books they will be displayed on the page, if not it will say you have no books saved. To remove a book from your list, please click 'Delete Book'.
+
+## Credits
+
+With thanks to:
+
+Logan Garland, Coding Bootcamp, University of Irvine California
+
+## License
+
+MIT License
