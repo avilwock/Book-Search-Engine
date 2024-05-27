@@ -65,9 +65,23 @@ To access the project deployed through Render, please visit: https://book-search
 
 ## Usage
 
-To use this site, please visit the above link. You will need to sign up with a username, email, and password. Once signed up you can view books by typing the titles, authors, or keywords into the search engine.
+To use this site, please visit the above link. You will need to sign up with a username, email, and password.
 
-To save a book to your list, click on the button underneath the book that says, 'Save This Book!'. To view your saved books, please click the See Your Books link at the top of the page on the right. On this page if you have books they will be displayed on the page, if not it will say you have no books saved. To remove a book from your list, please click 'Delete Book'.
+![alt text](images/Book-Search-5.png)
+
+Once signed up you can view books by typing the titles, authors, or keywords into the search engine.
+
+![alt text](images/Book-Search-1.png)
+
+
+To save a book to your list, click on the button underneath the book that says, 'Save This Book!'. To view your saved books, please click the See Your Books link at the top of the page on the right. On this page if you have books they will be displayed on the page, if not it will say you have no books saved.
+
+![alt text](images/Book-Search-2.png)
+![alt text](images/Book-Search-3.png)
+
+ To remove a book from your list, please click 'Delete Book'.
+
+ ![alt text](images/Book-Search-4.png)
 
 ## Credits
 
